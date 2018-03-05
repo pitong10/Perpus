@@ -1,0 +1,292 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package subForm;
+
+import connector.MySqlCon;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author Afif Bahtiar
+ */
+public class kelolaPeminjaman extends javax.swing.JPanel {
+
+    /**
+     * Creates new form kelolaPeminjaman
+     */
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat tgl = new SimpleDateFormat("dd-MM-yyyy");
+    String Tanggal = tgl.format(cal.getTime());
+
+    public kelolaPeminjaman() {
+        initComponents();
+        showTbPeminjaman("select * from transaksi_pinjam");
+    }
+
+    private void showTbPeminjaman(String query) {
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            try {
+                Object[] rows = {"Kode peminjaman", "Nomor induk", "Nip", "Tanggal Pinjam", "Tanggal kembali", "Batas pengembalian"};
+                DefaultTableModel dtm = new DefaultTableModel(null, rows);
+                tbPeminjaman.setModel(dtm);
+                tbPeminjaman.setBorder(null);
+                jScrollPane1.setVisible(true);
+                jScrollPane1.setViewportView(tbPeminjaman);
+                String id, induk, nip, tgl_pinjam, tgl_kembali, tgl_bts;
+                try {
+
+                    ResultSet rs = st.executeQuery(query);
+                    while (rs.next()) {
+                        id = rs.getString("id_peminjaman");
+                        induk = rs.getString("no_induk");
+                        nip = rs.getString("nip");
+                        tgl_pinjam = rs.getString("tgl_pinjam");
+                        tgl_kembali = rs.getString("tgl_kembali");
+                        tgl_bts = rs.getString("batas_pengembalian");
+
+                        String[] row = {"" + id, induk, nip, tgl_pinjam, tgl_kembali, tgl_bts};
+                        dtm.addRow(row);
+                    }
+
+                } catch (SQLException en) {
+                    JOptionPane.showMessageDialog(null, "Data yang anda masukkan tidak valid " + en);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Query Salah " + e);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(kelolaPeminjam.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void showDetail(String id, String induk, String nip, String tanggal) {
+
+        detailTa.setText("");
+        id_peminjamanLbl.setText(id);
+        String showNama = "select nama_siswa from peminjam where no_induk = '" + induk + "'";
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(showNama);
+
+            if (rs.next()) {
+                detailTa.append("Transaksi peminjaman atas nama : " + rs.getString("nama_siswa") + "(" + induk + ")\n\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error : " + e);
+        }
+
+        String showPetugas = "select nama_petugas from petugas where id_petugas = '" + nip + "'";
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(showPetugas);
+
+            if (rs.next()) {
+                detailTa.append("Dilayani oleh : " + rs.getString("nama_petugas") + "(" + nip + ")\n\n");
+                detailTa.append("Tanggal transaksi : " + tanggal + "\n\nBuku yang Dipinjam :\n====================================\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error : " + e);
+        }
+
+        String showBuku = "select melibatkan.kode_buku, data_buku.nama_buku from melibatkan join data_buku on melibatkan.kode_buku=data_buku.kode_buku WHERE melibatkan.id_peminjaman = '" + id + "'";
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(showBuku);
+            int index = 1;
+            while (rs.next()) {
+                detailTa.append(index + ". " + rs.getString("nama_buku") + " -(" + rs.getString("kode_buku") + ")\n");
+                index++;
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error : " + e);
+        }
+
+        detailTa.append("====================================\n");
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbPeminjaman = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        cariTf = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        showAllBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        detailTa = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        id_peminjamanLbl = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(1311, 559));
+
+        tbPeminjaman.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbPeminjaman.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPeminjamanMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbPeminjaman);
+
+        jButton1.setText("Cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Cari data pencarian berdasarkan ID nya!!");
+
+        showAllBtn.setText("Show All Data");
+        showAllBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showAllBtnActionPerformed(evt);
+            }
+        });
+
+        detailTa.setColumns(20);
+        detailTa.setRows(5);
+        jScrollPane2.setViewportView(detailTa);
+        detailTa.setEditable(false);
+
+        jLabel3.setText("Detail  transaksi : ");
+
+        id_peminjamanLbl.setText("-");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1299, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cariTf, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
+                            .addComponent(showAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(id_peminjamanLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(cariTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(id_peminjamanLbl))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                        .addComponent(showAllBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        showTbPeminjaman("select * from transaksi_pinjam where id_peminjaman = '" + cariTf.getText() + "'");
+        cariTf.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPeminjamanMouseClicked
+        // TODO add your handling code here:
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            int baris = tbPeminjaman.getSelectedRow();
+            String klik_tabel = (tbPeminjaman.getModel().getValueAt(baris, 0).toString());
+            String query = "select * from transaksi_pinjam where id_peminjaman = '" + klik_tabel + "'";
+            String id = "", induk = "", nip = "", tgl_pinjam = "", tgl_kembali = "", tgl_bts = "";
+
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                id = rs.getString("id_peminjaman");
+                induk = rs.getString("no_induk");
+                nip = rs.getString("nip");
+                tgl_pinjam = rs.getString("tgl_pinjam");
+                tgl_kembali = rs.getString("tgl_kembali");
+                tgl_bts = rs.getString("batas_pengembalian");
+
+                showDetail(id, induk, nip, tgl_pinjam);
+                detailTa.append("Tanggal pengembalian buku : " + tgl_kembali + "\n");
+                detailTa.append("Batas pengembalian buku : " + tgl_bts + "\n");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Query salah");
+        }
+    }//GEN-LAST:event_tbPeminjamanMouseClicked
+
+    private void showAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllBtnActionPerformed
+        // TODO add your handling code here:
+        showTbPeminjaman("select * from transaksi_pinjam");
+    }//GEN-LAST:event_showAllBtnActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cariTf;
+    private javax.swing.JTextArea detailTa;
+    private javax.swing.JLabel id_peminjamanLbl;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton showAllBtn;
+    private javax.swing.JTable tbPeminjaman;
+    // End of variables declaration//GEN-END:variables
+}
