@@ -51,7 +51,7 @@ public class kelolaPeminjaman extends javax.swing.JPanel {
                     while (rs.next()) {
                         id = rs.getString("id_peminjaman");
                         induk = rs.getString("no_induk");
-                        nip = rs.getString("nip");
+                        nip = rs.getString("id_petugas");
                         tgl_pinjam = rs.getString("tgl_pinjam");
                         tgl_kembali = rs.getString("tgl_kembali");
                         tgl_bts = rs.getString("batas_pengembalian");
@@ -256,7 +256,7 @@ public class kelolaPeminjaman extends javax.swing.JPanel {
             while (rs.next()) {
                 id = rs.getString("id_peminjaman");
                 induk = rs.getString("no_induk");
-                nip = rs.getString("nip");
+                nip = rs.getString("id_petugas");
                 tgl_pinjam = rs.getString("tgl_pinjam");
                 tgl_kembali = rs.getString("tgl_kembali");
                 tgl_bts = rs.getString("batas_pengembalian");

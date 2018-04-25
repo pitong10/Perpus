@@ -52,7 +52,6 @@ public class Login extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         dynamicPanel = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
 
         setTitle("Login");
         setPreferredSize(new java.awt.Dimension(1354, 632));
@@ -69,8 +68,6 @@ public class Login extends javax.swing.JInternalFrame {
             dynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 559, Short.MAX_VALUE)
         );
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +92,5 @@ public class Login extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

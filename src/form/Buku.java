@@ -54,9 +54,9 @@ public class Buku extends javax.swing.JInternalFrame {
 
         dynamicPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        inputData = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        formMenu = new javax.swing.JMenu();
+        inputMenu = new javax.swing.JMenuItem();
+        lihatMenu = new javax.swing.JMenuItem();
 
         setTitle("Data Buku");
         setPreferredSize(new java.awt.Dimension(1354, 632));
@@ -74,30 +74,30 @@ public class Buku extends javax.swing.JInternalFrame {
             .addGap(0, 559, Short.MAX_VALUE)
         );
 
-        inputData.setText("Form");
-        inputData.addActionListener(new java.awt.event.ActionListener() {
+        formMenu.setText("Form");
+        formMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputDataActionPerformed(evt);
+                formMenuActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setText("Input Data");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        inputMenu.setText("Input Data");
+        inputMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                inputMenuActionPerformed(evt);
             }
         });
-        inputData.add(jMenuItem1);
+        formMenu.add(inputMenu);
 
-        jMenuItem2.setText("Lihat Data");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        lihatMenu.setText("Lihat Data");
+        lihatMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                lihatMenuActionPerformed(evt);
             }
         });
-        inputData.add(jMenuItem2);
+        formMenu.add(lihatMenu);
 
-        jMenuBar1.add(inputData);
+        jMenuBar1.add(formMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -121,30 +121,30 @@ public class Buku extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
+    private void formMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formMenuActionPerformed
         // TODO add your handling code here:
         
         
-    }//GEN-LAST:event_inputDataActionPerformed
+    }//GEN-LAST:event_formMenuActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void lihatMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatMenuActionPerformed
         // TODO add your handling code here:
         ib.setVisible(false);
         kb.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_lihatMenuActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void inputMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputMenuActionPerformed
         // TODO add your handling code here:
         ib.setVisible(true);
         kb.setVisible(false);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_inputMenuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JMenu inputData;
+    private javax.swing.JMenu formMenu;
+    private javax.swing.JMenuItem inputMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem lihatMenu;
     // End of variables declaration//GEN-END:variables
 }

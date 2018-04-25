@@ -50,7 +50,6 @@ public class Kategori extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         dynamicPanel = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
 
         setTitle("Data Kategori Buku");
         setPreferredSize(new java.awt.Dimension(1354, 632));
@@ -68,8 +67,6 @@ public class Kategori extends javax.swing.JInternalFrame {
             .addGap(0, 559, Short.MAX_VALUE)
         );
 
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +81,7 @@ public class Kategori extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(dynamicPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,6 +90,5 @@ public class Kategori extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

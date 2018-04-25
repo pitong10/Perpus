@@ -50,7 +50,7 @@ public class kelolaBuku extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelBuku = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        cariBtn = new javax.swing.JButton();
         tfCari = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         updateDataPanel = new javax.swing.JPanel();
@@ -103,10 +103,10 @@ public class kelolaBuku extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelBuku);
 
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cariBtn.setText("Cari");
+        cariBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cariBtnActionPerformed(evt);
             }
         });
 
@@ -312,7 +312,7 @@ public class kelolaBuku extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tfCari, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(cariBtn))
                             .addComponent(jLabel13)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(proceedBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -335,7 +335,7 @@ public class kelolaBuku extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(cariBtn)
                             .addComponent(tfCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addComponent(jLabel13)
@@ -359,14 +359,14 @@ public class kelolaBuku extends javax.swing.JPanel {
         proceedBtn.setEnabled(false);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cariBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariBtnActionPerformed
         if (tfCari.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Harap isi kolom pencarian!!");
         } else {
             showTbBuku("select * from data_buku where kode_buku = '" + tfCari.getText() + "'");
             tfCari.setText("");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cariBtnActionPerformed
 
     private void btnShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllActionPerformed
         showTbBuku("select * from data_buku");
@@ -591,9 +591,9 @@ public class kelolaBuku extends javax.swing.JPanel {
     private javax.swing.JButton btnGo;
     private javax.swing.JButton btnShowAll;
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton cariBtn;
     private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JComboBox<String> isiCb;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

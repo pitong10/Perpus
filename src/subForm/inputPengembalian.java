@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -102,6 +103,8 @@ public class inputPengembalian extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         limitDate = new javax.swing.JLabel();
         submitBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listTrans = new javax.swing.JTextArea();
 
         setName("Input Peminjaman"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1311, 559));
@@ -110,7 +113,7 @@ public class inputPengembalian extends javax.swing.JPanel {
 
         todayDate.setText("Today_date");
 
-        jLabel3.setText("Masukkan Id Peminjaman      :");
+        jLabel3.setText("Masukkan nomor induk siswa      :");
 
         prosesBtn.setText("Proses");
         prosesBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +127,7 @@ public class inputPengembalian extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listTa);
         listTa.setEditable(false);
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Daftar buku yang dipinjam siswa");
 
         jLabel5.setText("Tanggal Pengembalian   :");
@@ -141,6 +145,16 @@ public class inputPengembalian extends javax.swing.JPanel {
             }
         });
 
+        listTrans.setColumns(20);
+        listTrans.setRows(5);
+        listTrans.setEditable(false);
+        listTrans.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listTransMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listTrans);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,29 +167,33 @@ public class inputPengembalian extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(todayDate))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(idPeminjamanTf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(prosesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)
+                                .addGap(211, 211, 211)
+                                .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(limitDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(pengembalianDate, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(limitDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pengembalianDate, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(714, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(idPeminjamanTf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(prosesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(538, 538, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,13 +202,14 @@ public class inputPengembalian extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(todayDate))
-                .addGap(55, 55, 55)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(idPeminjamanTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(prosesBtn)
-                .addGap(7, 7, 7)
+                    .addComponent(idPeminjamanTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prosesBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,7 +223,7 @@ public class inputPengembalian extends javax.swing.JPanel {
                     .addComponent(limitDate))
                 .addGap(33, 33, 33)
                 .addComponent(submitBtn)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(61, 61, 61))
         );
 
         submitBtn.setEnabled(false);
@@ -212,7 +231,8 @@ public class inputPengembalian extends javax.swing.JPanel {
 
     private void prosesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prosesBtnActionPerformed
         // TODO add your handling code here:
-        String query = "select * from transaksi_pinjam where id_peminjaman = '" + idPeminjamanTf.getText() + "'";
+        listTrans.setText("");
+        /*String query = "select * from transaksi_pinjam where id_peminjaman = '" + idPeminjamanTf.getText() + "'";
 
         try {
             Statement st = MySqlCon.getConnection().createStatement();
@@ -247,18 +267,33 @@ public class inputPengembalian extends javax.swing.JPanel {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Query salah, detail error : " + e);
+        }*/
+        String cari = "select id_peminjaman from transaksi_pinjam where no_induk = '" + idPeminjamanTf.getText() + "'";
+        try {
+            Statement st = MySqlCon.getConnection().createStatement();
+            ResultSet resultset = st.executeQuery(cari);
+
+            while (resultset.next()) {
+                String id_trans = resultset.getString("id_peminjaman");
+                listTrans.append(id_trans + "\n");
+            }
+
+            idPeminjamanTf.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error disini : " + e);
         }
+
     }//GEN-LAST:event_prosesBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
 
         int denda = 0;
-        
+
         try {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date tanggalpinjam = format.parse(pengembalianDate.getText());
-            Date tanggalkembali = format.parse("2018-03-02");
+            Date tanggalkembali = format.parse(today);
             Date tanggalbatas = format.parse(limitDate.getText());
 
             long tanggalpinjam1 = tanggalpinjam.getTime() / (24 * 60 * 60 * 1000);
@@ -270,26 +305,25 @@ public class inputPengembalian extends javax.swing.JPanel {
             long lama = diff / (24 * 60 * 60 * 1000);
             long lamaBatas = difflimit / (24 * 60 * 60 * 1000);
 
-            
             if (tanggalkembali1 <= tanggalpinjam1) {
                 JOptionPane.showMessageDialog(this, tanggalpinjam1 + " " + tanggalkembali1 + " " + tanggalbatas1 + " Aman");
             } else if (tanggalkembali1 > tanggalbatas1) {
-                denda = 2000*((int)tanggalkembali1 - (int)tanggalbatas1);
-                JOptionPane.showMessageDialog(this, "Dikarenakan terlambat "+difflimit+" hari, maka Anda harus \nmembayar denda Rp."+denda);
+                denda = 2000 * ((int) tanggalkembali1 - (int) tanggalbatas1);
+                JOptionPane.showMessageDialog(this, "Dikarenakan terlambat " + difflimit + " hari, maka Anda harus \nmembayar denda Rp." + denda);
             } else if (tanggalkembali1 == tanggalbatas1) {
                 denda = 1000;
-                JOptionPane.showMessageDialog(this, "Anda didenda Rp."+denda);
+                JOptionPane.showMessageDialog(this, "Anda didenda Rp." + denda);
             } else {
                 JOptionPane.showMessageDialog(this, "wow kok bisa??");
             }
-            
+
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         }
 
         String date = today.replace("-", "");
-        String idTrans = date+"-"+idPeminjamanTf.getText()+"-"+Data.getUserId();
-        String query = "insert into transaksi_pengembalian values('"+idTrans+"','"+idPeminjamanTf.getText()+"','"+Data.getUserId()+"','"+today+"','"+denda+"')";
+        String idTrans = date + "-" + idPeminjamanTf.getText() + "-" + Data.getUserId();
+        String query = "insert into transaksi_pengembalian values('" + idTrans + "','" + idPeminjamanTf.getText() + "','" + Data.getUserId() + "','" + today + "','" + denda + "')";
         try {
             MySqlCon.ExecuteQuery(query, "Data pengembalian berhasil dimasukkan");
             idPeminjamanTf.setText("");
@@ -298,21 +332,75 @@ public class inputPengembalian extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(inputPengembalian.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String updateSql;
         for (int i = 0; i < index; i++) {
-            updateSql = "update data_buku set keterangan= 'Tersedia' where kode_buku = '"+listBuku[i]+"'";
+            updateSql = "update data_buku set keterangan= 'Tersedia' where kode_buku = '" + listBuku[i] + "'";
             try {
                 MySqlCon.ExecuteQuery(updateSql, "Data buku telah diubah");
             } catch (Exception ex) {
                 Logger.getLogger(inputPeminjaman.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         index = 0;
         listBuku = new String[30];
         denda = 0;
     }//GEN-LAST:event_submitBtnActionPerformed
+
+    private void listTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTransMouseClicked
+
+        String text = null;
+        try {
+            // TODO add your handling code here:
+            int line = listTrans.getLineOfOffset(listTrans.getCaretPosition());
+            int start = listTrans.getLineStartOffset(line);
+            int end = listTrans.getLineEndOffset(line);
+            text = listTrans.getDocument().getText(start, end - start);
+            text = text.replace("\n", "").replace("\r", "");
+            JOptionPane.showMessageDialog(this, "value is : " + text);
+
+            String query = "select * from transaksi_pinjam where id_peminjaman = '" + text + "'";
+
+            try {
+                Statement st = MySqlCon.getConnection().createStatement();
+                ResultSet rs = st.executeQuery(query);
+
+                if (rs.next()) {
+
+                    String tanggalKembali = rs.getString("tgl_kembali");
+
+                    tanggalPinjam = rs.getString("tgl_pinjam");
+                    pengembalianDate.setText(rs.getString("tgl_kembali"));
+                    limitDate.setText(rs.getString("batas_pengembalian"));
+
+                    String listBukuQuery = "select melibatkan.kode_buku, data_buku.nama_buku from melibatkan join data_buku on melibatkan.kode_buku=data_buku.kode_buku WHERE melibatkan.id_peminjaman = '" + text + "'";
+                    try {
+                        ResultSet resultset = st.executeQuery(listBukuQuery);
+
+                        while (resultset.next()) {
+                            listBuku[index] = resultset.getString("kode_buku");
+                            String nama_buku = resultset.getString("nama_buku");
+                            listTa.append(nama_buku + "\n");
+                            index++;
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "Error disini : " + e);
+                    }
+
+                    submitBtn.setEnabled(true);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Id peminjaman yang anda masukkan tidak ditemukan!");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Query salah, detail error : " + e);
+            }
+
+        } catch (BadLocationException ex) {
+            Logger.getLogger(inputPengembalian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_listTransMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -323,8 +411,10 @@ public class inputPengembalian extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel limitDate;
     private javax.swing.JTextArea listTa;
+    private javax.swing.JTextArea listTrans;
     private javax.swing.JLabel pengembalianDate;
     private javax.swing.JButton prosesBtn;
     private javax.swing.JButton submitBtn;

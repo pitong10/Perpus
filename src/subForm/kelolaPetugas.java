@@ -28,6 +28,7 @@ public class kelolaPetugas extends javax.swing.JPanel {
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat tgl = new SimpleDateFormat("dd-MM-yyyy");
     String Tanggal = tgl.format(cal.getTime());
+    
     public kelolaPetugas() {
         initComponents();
         showTbPetugas("select * from petugas where level = 'Petugas'");
